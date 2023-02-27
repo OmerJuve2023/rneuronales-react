@@ -30,7 +30,7 @@ const Home = () => {
 
     const saveTime = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:3009/api/tiempo", {
+        await axios.post("https://tiempo-redes.herokuapp.com/api/tiempo", {
             t1: timeBeats[0],
             t2: timeBeats[1],
             t3: timeBeats[2],
@@ -49,7 +49,7 @@ const Home = () => {
     async function handleExportClick() {
         try {
 
-            const url = "http://localhost:3009/api/tiempo/exportCSV";
+            const url = "https://tiempo-redes.herokuapp.com/api/tiempoexportCSV";
             const rpta = await axios.get(url, {responseType: "blob"});
             const archivo = new Blob([rpta.data], {type: "text/csv;charset=utf-8;"});
             const link = document.createElement("a");

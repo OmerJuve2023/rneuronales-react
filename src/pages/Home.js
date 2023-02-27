@@ -65,7 +65,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3009/api/tiempo")
+        axios.get("https://tiempo-redes.herokuapp.com/api/tiempo")
             .then(response => setData(response.data))
             .catch(error => console.log(error));
     }, [])

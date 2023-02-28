@@ -99,7 +99,7 @@ const Home = () => {
                 <table className="table border shadow table-striped">
                     <thead className={"table-danger"}>
                     <tr>
-                        <th scope={"cols"}>#</th>
+                        <th scope={"cols"}>DNI</th>
                         <th scope={"cols"}>Clave</th>
                         <th scope={"cols"}>Fecha</th>
                         <th scope={"cols"}>T1</th>
@@ -131,7 +131,7 @@ const Home = () => {
                     </tbody>
                 </table>
                 <br/>
-                <Pagination className={"pagination"}>
+                <div className={"pagination"}>
                     <Pagination.First disabled={currentPage === 1}
                                       onClick={() => handlePageChange(1)}/>
                     <Pagination.Prev disabled={currentPage === 1}
@@ -146,7 +146,7 @@ const Home = () => {
                                      onClick={() => handlePageChange(currentPage + 1)}/>
                     <Pagination.Last disabled={currentPage === totalPages}
                                      onClick={() => handlePageChange(totalPages)}/>
-                </Pagination>
+                </div>
 
                 <button className={"btn btn-outline-primary mx-3 text-dark"}
                         onClick={handleExportClick}

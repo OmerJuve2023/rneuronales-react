@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "react-bootstrap/Pagination";
 
+
 const Home = () => {
 
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const Home = () => {
 
     /*Paginado de la Tabla*/
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setElementPerPage] = useState(10);
+    const [itemsPerPage] = useState(10);
     const totalPages = currentPage === Math.ceil(data.length / itemsPerPage);
 
     const currentElements = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -39,6 +40,7 @@ const Home = () => {
             t6: timeBeats[5],
             t7: timeBeats[6],
             clave: clave,
+            fecha: new Date().getTime()
         });
         window.location.reload();
     }
@@ -116,13 +118,13 @@ const Home = () => {
                                 <td><b>{t.codigo}</b></td>
                                 <td>{t.clave}</td>
                                 <td>{t.fecha}</td>
-                                <td>{t.t1}</td>
-                                <td>{t.t2}</td>
-                                <td>{t.t3}</td>
-                                <td>{t.t4}</td>
-                                <td>{t.t5}</td>
-                                <td>{t.t6}</td>
-                                <td>{t.t7}</td>
+                                <td>{parseFloat(t.t1).toFixed(2)}</td>
+                                <td>{parseFloat(t.t2).toFixed(2)}</td>
+                                <td>{parseFloat(t.t3).toFixed(2)}</td>
+                                <td>{parseFloat(t.t4).toFixed(2)}</td>
+                                <td>{parseFloat(t.t5).toFixed(2)}</td>
+                                <td>{parseFloat(t.t6).toFixed(2)}</td>
+                                <td>{parseFloat(t.t7).toFixed(2)}</td>
                             </tr>
                         ))
                     }
@@ -132,7 +134,7 @@ const Home = () => {
                 <Pagination className={"pagination"}>
                     <Pagination.First disabled={currentPage === 1}
                                       onClick={() => handlePageChange(1)}/>
-                    <Pagination.Prev disabled={currentPage == 1}
+                    <Pagination.Prev disabled={currentPage === 1}
                                      onClick={() => handlePageChange(currentPage - 1)}/>
                     {Array.from({length: totalPages}, (_, index) => (
                         <Pagination.Item key={index} active={index + 1 === currentPage}
@@ -145,32 +147,7 @@ const Home = () => {
                     <Pagination.Last disabled={currentPage === totalPages}
                                      onClick={() => handlePageChange(totalPages)}/>
                 </Pagination>
-                {/*<nav aria-label="Page Pagination">
 
-                    <ul className="pagination">
-                        <li className={"page-item"}>
-                            <a className="page-link"
-                               onClick={() => setCurrentPage(currentPage - 1)}
-                               aria-disabled={currentPage === 1}
-                               tabIndex="-1">Anterior</a>
-                        </li>
-                        <li>
-                            {
-                                number.map(number => (
-                                    <li key={number}
-                                        className={'page-item $currentPage===number?'active':''}'}>
-                                        <button className={"page-link"}
-                                                onClick={() => setCurrentPage(number)}>{number}</button>
-                                    </li>
-                                ))}
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link"
-                               disabled={currentPage === Math.ceil(data.length / elementsPerPage)}
-                               onClick={() => setCurrentPage(currentPage + 1)}>Siguiente</a>
-                        </li>
-                    </ul>
-                </nav>*/}
                 <button className={"btn btn-outline-primary mx-3 text-dark"}
                         onClick={handleExportClick}
                 >Exportar CSV

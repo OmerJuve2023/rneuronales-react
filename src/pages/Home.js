@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "react-bootstrap/Pagination";
 
-
 const Home = () => {
 
     const [data, setData] = useState([]);
@@ -13,7 +12,7 @@ const Home = () => {
 
     /*Paginado de la Tabla*/
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10);
+    const [itemsPerPage] = useState(7);
     const totalPages = currentPage === Math.ceil(data.length / itemsPerPage);
 
     const currentElements = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -21,7 +20,7 @@ const Home = () => {
         setCurrentPage(pageNumber);
     }
     const process = () => {
-        const tiempoActual = Date.now() / 1000; // convertir a segundos
+        const tiempoActual = Date.now() / 10; // convertir a milisegundos
         const tiempoUltimaPulsacion = pulsaciones.length > 0 ? pulsaciones[pulsaciones.length - 1] : tiempoActual;
         const tiempoEntrePulsacion = tiempoActual - tiempoUltimaPulsacion;
         console.log(tiempoEntrePulsacion);
@@ -32,15 +31,16 @@ const Home = () => {
     const saveTime = async (e) => {
         e.preventDefault();
         await axios.post("http://localhost:3009/api/tiempo", {
-            t1: timeBeats[0],
-            t2: timeBeats[1],
-            t3: timeBeats[2],
-            t4: timeBeats[3],
-            t5: timeBeats[4],
-            t6: timeBeats[5],
-            t7: timeBeats[6],
+            t1: timeBeats[1],
+            t2: timeBeats[2],
+            t3: timeBeats[3],
+            t4: timeBeats[4],
+            t5: timeBeats[5],
+            t6: timeBeats[6],
+            t7: timeBeats[7],
+            t8: timeBeats[8],
             clave: clave,
-            fecha: new Date().getTime()
+            fecha: new Date().toISOString().split("T")[0]
         });
         window.location.reload();
     }
@@ -67,20 +67,21 @@ const Home = () => {
     }
 
     useEffect(() => {
+        console.log(new Date().toISOString().split("T")[0])
         axios.get("http://localhost:3009/api/tiempo")
             .then(response => setData(response.data))
             .catch(error => console.log(error));
     }, [])
     data.sort((a, b) => b.codigo - a.codigo);
     return (
-        <div className={"container"}>
-            <h2 className={"text-center m-4"}>Registrar Clave</h2>
 
+        <div className={"container"}>
+            <h2 className={"text-center m-4"}>Registrar DNI</h2>
             <div className={"mb-3"}>
                 <label htmlFor="Clave" className={"form-label"}></label>
                 <input className={"form-control"}
                        maxLength={8}
-                       placeholder={"escriba la clave de 8 digitos"}
+                       placeholder={"escriba DNI de 8 digitos"}
                        type="text"
                        id={"txtClave"}
                        name={"clave"}
@@ -96,11 +97,11 @@ const Home = () => {
             <div><br/></div>
 
             <div className={"py-4"}>
-                <table className="table border shadow table-striped">
+                <table className="table table-bordered rounded border shadow table-striped">
                     <thead className={"table-danger"}>
                     <tr>
+                        <th scope={"cols"}>ID</th>
                         <th scope={"cols"}>DNI</th>
-                        <th scope={"cols"}>Clave</th>
                         <th scope={"cols"}>Fecha</th>
                         <th scope={"cols"}>T1</th>
                         <th scope={"cols"}>T2</th>
@@ -118,13 +119,15 @@ const Home = () => {
                                 <td><b>{t.codigo}</b></td>
                                 <td>{t.clave}</td>
                                 <td>{t.fecha}</td>
-                                <td>{parseFloat(t.t1).toFixed(2)}</td>
-                                <td>{parseFloat(t.t2).toFixed(2)}</td>
-                                <td>{parseFloat(t.t3).toFixed(2)}</td>
-                                <td>{parseFloat(t.t4).toFixed(2)}</td>
-                                <td>{parseFloat(t.t5).toFixed(2)}</td>
-                                <td>{parseFloat(t.t6).toFixed(2)}</td>
-                                <td>{parseFloat(t.t7).toFixed(2)}</td>
+                                {/*<td>{parseFloat(t.t2).toFixed(2)}</td>*/}
+                                <td>{t.t1}</td>
+                                <td>{t.t2}</td>
+                                <td>{t.t3}</td>
+                                <td>{t.t4}</td>
+                                <td>{t.t5}</td>
+                                <td>{t.t6}</td>
+                                <td>{t.t7}</td>
+
                             </tr>
                         ))
                     }

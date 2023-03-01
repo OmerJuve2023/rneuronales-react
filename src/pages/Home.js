@@ -119,7 +119,6 @@ const Home = () => {
                                 <td><b>{t.codigo}</b></td>
                                 <td>{t.clave}</td>
                                 <td>{t.fecha}</td>
-                                {/*<td>{parseFloat(t.t2).toFixed(2)}</td>*/}
                                 <td>{t.t1}</td>
                                 <td>{t.t2}</td>
                                 <td>{t.t3}</td>
